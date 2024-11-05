@@ -3,11 +3,15 @@ import Card from './components/Card';
 
 function App() {
   return (
-    <>
-      <h1 className='font-bold'>HTL Dornbirn</h1>
-      <Card />
-      <Card />
-    </>
+    <div className='bg-yellow-400'>
+      <h1 className='font-bold p-5 text-3xl bg-white'>HTL Dornbirn</h1>
+      <div className="flex w-100% justify-around flex-wrap">
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+      </div>
+    </div>
   )
 }
 
