@@ -10,8 +10,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// Serve static files from the current directory
-app.use(express.static('./'));
+// Serve static files from the public directory
+app.use(express.static('public'));
 
 // Generate random person data
 function generatePerson() {
@@ -36,7 +36,6 @@ app.get('/api/people', (req, res) => {
   res.json(people);
 });
 
-// Start the server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
-});
+}); 
