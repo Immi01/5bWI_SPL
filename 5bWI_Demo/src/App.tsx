@@ -14,7 +14,8 @@ function App() {
   }
 
   useEffect(() => {
-    fetch("http://localhost:8055/items/people").then(
+    //fetch("http://localhost:8055/items/people").then(
+    fetch("http://10.115.1.34:8055/items/people").then(
       (response) => {
         response.json().then((data: any) => {
           data.data.map((person:any)=>{
