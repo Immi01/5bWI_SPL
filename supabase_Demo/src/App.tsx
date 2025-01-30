@@ -1,53 +1,20 @@
-import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  "https://kcfanhjycumnnyuwhihc.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjZmFuaGp5Y3Vtbm55dXdoaWhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc2MjQ1NzgsImV4cCI6MjA1MzIwMDU3OH0.0PmVwdtTEJq_4hlEhYcZ1dZkx7CvZeTtg0DaGu9nsn4"
-);
+import Form from "./components/Form";
+import List from "./components/List"
 
 function App() {
 
-  type Homework = {
-    created_at: Date,
-    description: string,
-    due: Date,
-    id: number,
-    subject: string
-  };
-
-  const [homework, setHomework] = useState<Homework[]>([]);
-
-  useEffect(() => {
-    getHomework().then((data) => setHomework(data));
-    getHomework();
-  }, []);
-
-  async function getHomework():Promise<Homework[]> {
-    const data = await supabase.from("homework").select("*");
-    let converted:Homework[] = [];
-    if (data.data != null) {
-      for (let i = 0; i < data.data.length; i++) {
-        converted[i] = {
-          created_at: new Date(data.data[i].created_at),
-          description: data.data[i].description,
-          due: new Date(data.data[i].due),
-          id: data.data[i].id,
-          subject: data.data[i].subject
-        };
-      }
-      converted = data.data;
-      console.log(converted[0].created_at);
-    }
-    return converted;
-  }
-
   return (
-    <ul>
-      {homework.map((hw:Homework) => (
-        <li key={hw.id}>{hw.subject}</li>
-      ))}
-    </ul>
+    <div className="flex justify-center h-screen bg-neutral-800">
+      <div className="flex-col mt-10 w-2/3 md:w-1/2 lg:w-1/3">
+        <h1 className="text-6xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b from-blue-700 to-blue-500">Homework</h1>
+        <div className="bg-neutral-900 rounded-xl mt-6">
+          <List/>
+        </div>
+        <div className="mt-5">
+          <Form/>
+        </div>
+      </div>
+    </div>
   );
 }
 
