@@ -1,7 +1,10 @@
+import { useState } from "react";
 import Form from "./components/Form";
-import List from "./components/List"
+import List from "./components/List";
 
 function App() {
+
+  //const [homework, setHomework] = useState<Homework[]>([]);
 
   return (
     <div className="flex justify-center h-screen bg-neutral-800">
@@ -10,7 +13,7 @@ function App() {
         <div className="bg-neutral-900 rounded-xl mt-6">
           <List/>
         </div>
-        <div className="mt-5">
+        <div className="bg-neutral-900 rounded-xl mt-6">
           <Form/>
         </div>
       </div>
