@@ -6,18 +6,18 @@ const supabase = createClient(
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjZmFuaGp5Y3Vtbm55dXdoaWhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc2MjQ1NzgsImV4cCI6MjA1MzIwMDU3OH0.0PmVwdtTEJq_4hlEhYcZ1dZkx7CvZeTtg0DaGu9nsn4"
 );
 
-type Homework = {
-  created_at: Date,
-  description: string,
-  due: Date,
-  id: number,
-  subject: string
-};
+function App({reload}: {reload: Boolean}) {
 
-function App(homework:Homework[]) {
-
+  type Homework = {
+    created_at: Date,
+    description: string,
+    due: Date,
+    id: number,
+    subject: string
+  };
   const empty:Error = new Error("Response Empty");
 
+  const [homework, setHomework] = useState<Homework[]>([]);
 
   useEffect(() => {
     getHomework().then((data) => setHomework(data));
@@ -29,7 +29,7 @@ function App(homework:Homework[]) {
         alert("Unable to get Homework")
       }
     });
-  }, []);
+  }, [reload]);
 
   async function getHomework():Promise<Homework[]> {
     const {data:hw, error} = await supabase.from("homework").select("*");

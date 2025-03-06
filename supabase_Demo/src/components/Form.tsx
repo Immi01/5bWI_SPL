@@ -6,13 +6,14 @@ const supabase = createClient(
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjZmFuaGp5Y3Vtbm55dXdoaWhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc2MjQ1NzgsImV4cCI6MjA1MzIwMDU3OH0.0PmVwdtTEJq_4hlEhYcZ1dZkx7CvZeTtg0DaGu9nsn4"
 );
 
-function App() {
+function App({reload, setReload}: {reload:Boolean, setReload:React.Dispatch<React.SetStateAction<boolean>>}) {
 
   const form = document.getElementById("insert") as HTMLFormElement;
 
   async function handleSubmit(e:FormEvent) {
     e.preventDefault();
     let data;
+    console.log(form);
     data = new FormData(form);
     if(!data.get("subject") || !data.get("due") || !data.get("description")) {
       alert("Please fill all input fields.")
@@ -30,11 +31,11 @@ function App() {
       }
     }
 
-    insertHw(e,data);
+    insertHw(data);
 
   }
 
-  async function insertHw(e:FormEvent, data:FormData) {
+  async function insertHw(data:FormData) {
     const { error } = await supabase
     .from('homework')
     .insert([
@@ -48,7 +49,8 @@ function App() {
     if (error != null) {
       alert(error.message);
     } else {
-      alert("Data successfully transmitted")
+      alert("Data successfully transmitted");
+      setReload(!reload);
     }
 
   }
@@ -64,7 +66,7 @@ function App() {
         <label htmlFor="description">Description</label>
         <textarea name="description" id="description" className="pl-1.5 bg-white rounded-md text-black"></textarea>
         <div className="placeholder"></div>
-        <input type="submit" className="font-semibold bg-gradient-to-b from-blue-700 to-blue-500 rounded-md"/>
+        <input type="submit" className="font-semibold bg-gradient-to-b from-blue-700 to-blue-500 rounded-md cursor-pointer"/>
       </form>
     </div>
   );
