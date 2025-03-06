@@ -1,9 +1,8 @@
-import Menu from "./components/ui/Menu";
 
 export default function Home () {
     return (
         <div>
-            <Menu/>
+            <h1>Home</h1>
         </div>
     );
 }
